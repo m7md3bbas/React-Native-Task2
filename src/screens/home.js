@@ -1,6 +1,6 @@
 
-import { KeyboardAvoidingView, Text, View } from 'react-native';
-import { useState } from 'react';
+import { Text, View } from 'react-native';
+import { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import TodoForm from '../components/inputform';
 import StatusTodos from '../components/statusTodos';
@@ -8,15 +8,10 @@ import { styles } from '../../styles';
 export default function Home() {
     const [todos, setTodos] = useState([]);
 
-    const onSaveData = async (todo) => {
-        try {
-            const updatedTodos = [...todos, todo];
-            setTodos(updatedTodos);
-            await AsyncStorage.setItem('todos', JSON.stringify(updatedTodos));
-        } catch (error) {
-            console.error("Error saving data", error);
-        }
-    };
+
+    useEffect(() => {
+        getDataFrmStorage();
+    }, []);
     const removeTodo = async (id) => {
         try {
             const updatedTodos = todos.filter(item => item.id !== id);
@@ -26,6 +21,30 @@ export default function Home() {
             console.error("Error removing todo:", error);
         }
     };
+    const onSaveData = async (todo) => {
+        try {
+            const updatedTodos = [...todos, todo];
+            setTodos(updatedTodos);
+            await AsyncStorage.setItem('todos', JSON.stringify(updatedTodos));
+        } catch (error) {
+            console.error("Error saving data", error);
+        }
+    };
+
+
+    const getDataFrmStorage = async () => {
+        try {
+            const storedTodos = await AsyncStorage.getItem('todos');
+            if (storedTodos) {
+                setTodos(JSON.parse(storedTodos));
+            }
+        } catch (error) {
+            console.error("Error fetching data", error);
+        }
+    }
+
+
+
 
     const updatedtodo = async (id) => {
         try {

@@ -3,8 +3,8 @@ import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import completedTasks from '../screens/completedTasks'
-import Home from '../screens/home'
 import { AntDesign } from '@expo/vector-icons'
+import StackedRoute from './stackedRoute'
 const { Navigator, Screen } = createBottomTabNavigator();
 const Router = () => {
     const myStyle = {
@@ -27,7 +27,7 @@ const Router = () => {
                     ...myStyle
                 }
             }>
-                <Screen name='Home' component={Home} options={{
+                <Screen name='Home' component={StackedRoute} options={{
                     tabBarIcon: ({ focused, color, size }) => <AntDesign name="home" size={24} color={focused ? "green" : "white"} />,
                     tabBarLabel: ({ focused, color, size }) => <Text style={{ color: focused ? "green" : "white", fontSize: 12 }}>Home</Text>,
                 }} />
