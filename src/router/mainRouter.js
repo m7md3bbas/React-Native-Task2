@@ -28,13 +28,13 @@ const Router = () => {
                 }
             }>
                 <Screen name='Home' component={StackedRoute} options={{
-                    tabBarIcon: ({ focused, color, size }) => <AntDesign name="home" size={24} color={focused ? "green" : "white"} />,
-                    tabBarLabel: ({ focused, color, size }) => <Text style={{ color: focused ? "green" : "white", fontSize: 12 }}>Home</Text>,
+                    tabBarIcon: ({ focused }) => <AntDesign name="home" size={24} color={focused ? "green" : "white"} />,
+                    tabBarLabel: ({ focused }) => <Text style={{ color: focused ? "green" : "white", fontSize: 12 }}>Home</Text>,
                 }} />
                 <Screen name='Completed' component={completedTasks} options={{
 
-                    tabBarIcon: ({ focused, color, size }) => <AntDesign name="bars" size={24} color={focused ? "green" : "white"} />,
-                    tabBarLabel: ({ focused, color, size }) => <Text style={{ color: focused ? "green" : "white", fontSize: 12 }}>Completed</Text>,
+                    tabBarIcon: ({ focused }) => <AntDesign name="bars" size={24} color={focused ? "green" : "white"} />,
+                    tabBarLabel: ({ focused }) => <Text style={{ color: focused ? "green" : "white", fontSize: 12 }}>Completed</Text>,
                 }} />
             </Navigator>
         </NavigationContainer>

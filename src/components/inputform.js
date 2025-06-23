@@ -1,10 +1,15 @@
 import { Alert, Text, TextInput, TouchableOpacity } from "react-native";
 import { styles } from "../../styles";
 import { useState } from "react";
-const TodoForm = ({ onSubmit }) => {
+import { useDispatch } from "react-redux";
+import { addTodo } from "../app/slices/todosSlice";
+import { v4 as uuidv4 } from 'uuid';
+
+const TodoForm = () => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [error, setError] = useState("");
+    const dispatch = useDispatch();
 
     const handleSubmit = () => {
         if (!title.trim()) {
@@ -17,15 +22,18 @@ const TodoForm = ({ onSubmit }) => {
             Alert.alert("Error", "Description is required.");
             return;
         }
+
         const todo = {
-            id: Math.random().toString(),
+            id: uuidv4(),
             title: title.trim(),
             description: description.trim(),
             completed: false,
         };
-        onSubmit(todo);
+
+        dispatch(addTodo(todo));
         setTitle("");
         setDescription("");
+        setError("");
     };
 
     return (

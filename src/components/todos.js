@@ -1,11 +1,11 @@
 import { View } from "react-native";
 import TodoItem from "./todoItem";
 
-const Todos = ({ todos, removeTodo, updatedtodo }) => {
+const Todos = ({ todos }) => {
     return (
         <View>
             {todos.map((todo) => (
-                <TodoItem key={todo.id} todo={todo} removeTodo={removeTodo} updatedtodo={updatedtodo} />
+                <TodoItem key={todo.id} todo={todo} />
             ))}
         </View>
     );

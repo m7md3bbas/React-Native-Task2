@@ -2,14 +2,13 @@ import { View, Text, TouchableOpacity } from "react-native";
 import { styles } from "../../styles";
 import Todos from "./todos";
 import React, { useState } from "react";
-const StatusTodos = ({ data, removeTodo, updatedtodo }) => {
-    const [filter, setFilter] = useState("All");
+import { useSelector } from "react-redux";
+import { filterTodo } from "../app/slices/todosSlice";
 
-    const filteredTodos = data.filter((todo) => {
-        if (filter === "All") return true;
-        if (filter === "Completed") return todo.completed;
-        if (filter === "In Progress") return !todo.completed;
-    });
+const StatusTodos = () => {
+    const todos = useSelector((state) => state.todos.todos);
+    filterTodo(todos);
+
 
     return (
         <>
@@ -48,7 +47,7 @@ const StatusTodos = ({ data, removeTodo, updatedtodo }) => {
                 </TouchableOpacity>
             </View>
             {filteredTodos && filteredTodos.length > 0 ? (
-                <Todos todos={filteredTodos} removeTodo={removeTodo} updatedtodo={updatedtodo} />
+                <Todos todos={filteredTodos} />
             ) : (
                 <Text style={{ fontSize: 20, fontWeight: "500", textAlign: "center", paddingTop: 50 }}>No Todos</Text>
             )}
